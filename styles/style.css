@@ -10,20 +10,13 @@
   background: var(--brand-primary);
 }
 
-.featured-image {
-  padding: 8% 0 9.5%;
-  background-color: #ef4222;
-}
-
-.featured-image .figure {
-  width: 88%;
-  height: 100%;
-  margin: 0 auto;
-}
-
 .main-paragraph {
   max-width: 662px;
   margin: 1.75rem auto;
+}
+
+.slide-link {
+  cursor: pointer;
 }
 
 .slide-figure-wrapper {
@@ -51,6 +44,18 @@
 
 .slide-description .paragraph {
   margin: 1.25rem 0 1.75rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slide-link:hover .slide-header {
+    color: white;
+    background: #121212;
+  }
+
+  .slide-link:hover .slide-number {
+    border-right: 0.25rem solid #575757;
+    -webkit-text-stroke: 3px white;
+  }
 }
 
 @media screen and (max-width: 1000px) {
