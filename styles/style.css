@@ -10,6 +10,16 @@
   background: var(--brand-primary);
 }
 
+.horror-movies .featured-image {
+  padding: 1.265%;
+  background: #ef4222 !important;
+}
+
+.horror-movies .featured-image .figure {
+  height: 100%;
+  overflow: hidden;
+}
+
 .main-paragraph {
   max-width: 662px;
   margin: 1.75rem auto;
@@ -19,7 +29,7 @@
   cursor: pointer;
 }
 
-.slide-figure-wrapper {
+.horror-movies .slide-figure-wrapper {
   aspect-ratio: 1.5;
 }
 
@@ -30,7 +40,7 @@
   padding: 16px;
 }
 
-.slide-number {
+.horror-movies .slide-number {
   margin-right: 1rem;
   border-right: 0.25rem solid var(--border);
   padding-right: 0.875rem;
@@ -49,7 +59,7 @@
 @media (hover: hover) and (pointer: fine) {
   .slide-link:hover .slide-header {
     color: white;
-    background: #121212;
+    background: black;
   }
 
   .slide-link:hover .slide-number {
@@ -59,7 +69,7 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .slide-title {
+  .horror-movies .slide-title {
     font-size: 30px;
     line-height: 32px;
   }
@@ -80,7 +90,7 @@
     display: block;
   }
 
-  .slide-number {
+  .horror-movies .slide-number {
     margin: 0;
     border: none;
     padding: 0 0 0.5rem;
