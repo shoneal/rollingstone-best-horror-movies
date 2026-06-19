@@ -1,5 +1,8 @@
 import { data } from "https://shoneal.github.io/rollingstone/scripts/data.js";
-import { allLinks } from "https://shoneal.github.io/rollingstone/scripts/links.js";
+import {
+  listsLinks,
+  coversLinks,
+} from "https://shoneal.github.io/rollingstone/scripts/links.js";
 import {
   changingTheme,
   switchingStickinessHeader,
@@ -12,7 +15,9 @@ import {
 import {
   initBodyElements,
   getSectionContext,
-  renderAuthorLinks,
+  createResponsiveImage,
+  initializeHeaderImages,
+  renderLastArticlesAndDate,
   createNavigation,
   updateActiveLink,
   handleNavigationClick,
@@ -22,45 +27,11 @@ import {
 const section = "horror-movies"; // О чем сайт
 const bodyElements = initBodyElements(); // Элементы тела страницы
 const { basicLink, currentData, dataLength } = getSectionContext(
+  bodyElements.url,
   section,
   data,
   kebabToCamel,
 ); // Главная ссылка, данные по имени секции и длина объекта
-const initializeHeaderImages = (data, container, caption) => {
-  const elements = Object.keys(data);
-
-  const randomElements = [];
-  while (randomElements.length < 3) {
-    const key = elements[Math.floor(Math.random() * elements.length)];
-    if (!randomElements.includes(key)) randomElements.push(key);
-  }
-
-  let loaded = 0;
-  const complete = () => ++loaded === 3 && (container.style.opacity = "1");
-  const fragment = document.createDocumentFragment();
-
-  [...randomElements].forEach((key) => {
-    const img = Object.assign(document.createElement("img"), {
-      src: getImagePath(basicLink, "header/desktop", key),
-      srcset: `${getImagePath(
-        basicLink,
-        "header/mobile",
-        key,
-      )} 300w, ${getImagePath(basicLink, "header/desktop", key)} 2400w`,
-      sizes: "100vw",
-      alt: key,
-      onload: complete,
-    });
-
-    const wrapper = document.createElement("div");
-    wrapper.appendChild(img);
-    fragment.appendChild(wrapper);
-  });
-
-  container.appendChild(fragment);
-
-  caption.textContent = `${[...randomElements].join(", ")}`;
-}; // Создание картинки в шапке
 const renderSlides = (object) => {
   const variants = Object.keys(object)
     .flatMap((t) => {
@@ -96,21 +67,17 @@ const renderSlides = (object) => {
     slide.dataset.slideId = data.place;
     link.href = data.link;
 
+    const { src, srcset } = createResponsiveImage(
+      basicLink,
+      key,
+      "shots",
+      872,
+      [320, 640, 800, 1024, 1280],
+    );
+
     img.style.opacity = "0";
-    img.src = getImagePath(basicLink, "shots/872", key);
-    img.srcset = `${getImagePath(
-      basicLink,
-      "shots/320",
-      key,
-    )} 320w, ${getImagePath(basicLink, "shots/640", key)} 640w, ${getImagePath(
-      basicLink,
-      "shots/800",
-      key,
-    )} 800w, ${getImagePath(
-      basicLink,
-      "shots/1024",
-      key,
-    )} 1024w, ${getImagePath(basicLink, "shots/1280", key)} 1280w`;
+    img.src = src;
+    img.srcset = srcset;
     img.alt = key;
     showImage(img);
 
@@ -133,6 +100,7 @@ const renderSlides = (object) => {
 }; // Вывод элементов в структуру HTML
 bodyElements.navigation.addEventListener("click", handleNavigationClick); // Обработчик кликов по навигации
 document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add(section); // Название секции классом для body
   changingTheme(); // Смена темы
   switchingStickinessHeader(bodyElements.title, bodyElements.header); // Липкий выезжающий header
 
@@ -140,6 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
     currentData,
     bodyElements.headerImages,
     bodyElements.headerImagesCaption,
+    {
+      getAuthor: (_, key) => key,
+    },
   ); // Создание картинки в шапке
 
   renderSlides(currentData); // Вывод элементов в структуру HTML
@@ -147,8 +118,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initApp(
     bodyElements,
     dataLength,
-    renderAuthorLinks,
-    allLinks,
+    renderLastArticlesAndDate,
+    coversLinks,
+    listsLinks,
     createNavigation,
     updateActiveLink,
   ); // Общая для всех инициализация
