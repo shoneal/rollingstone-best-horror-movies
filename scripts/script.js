@@ -68,6 +68,7 @@ const renderSlides = (object) => {
     link.href = data.link;
 
     const { src, srcset } = createResponsiveImage(
+      getImagePath,
       basicLink,
       key,
       "shots",
