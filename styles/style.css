@@ -57,7 +57,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .slide-header:hover  {
+  .slide-header:hover {
     color: white;
     background: black;
   }
@@ -69,6 +69,11 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .article-kicker {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
   .horror-movies .slide-title {
     font-size: 30px;
     line-height: 32px;
