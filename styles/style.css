@@ -16,8 +16,24 @@
 }
 
 .horror-movies .featured-image .figure {
+  position: relative;
   height: 100%;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
   overflow: hidden;
+}
+
+.horror-movies .featured-image .figure::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  background-image: url(https://shoneal.github.io/rollingstone/images/dots.png);
+  background-size: 22%;
 }
 
 .main-paragraph {
