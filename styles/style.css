@@ -31,8 +31,6 @@
 .horror-movies .featured-image .figure {
   position: relative;
   height: 100%;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
   overflow: hidden;
 }
 
